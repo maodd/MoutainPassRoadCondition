@@ -22,7 +22,7 @@ class DataService {
         url = URL(string: "https://wsdot.wa.gov/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionsAsJson?AccessCode=\(accessCode)")!
     }
     
-    func getPassCondition(_ completionBlock: @escaping ((PassConditionModel) -> Void)) {
+    func getPassCondition(_ completionBlock: @escaping (([PassConditionModel]) -> Void)) {
         
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -33,9 +33,8 @@ class DataService {
                     
                     let modelList = try decoder.decode([PassConditionModel].self, from: data)
                     
-                    if let model = modelList.first(where: { $0.MountainPassId == self.mountainPassId }) {
-                        completionBlock(model)
-                    }
+                    completionBlock(modelList)
+                    
                 } catch {
                     print(error)
                 }

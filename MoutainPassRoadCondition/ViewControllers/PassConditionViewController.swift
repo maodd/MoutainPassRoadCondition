@@ -16,18 +16,23 @@ enum PassConditionSection : Int, CaseIterable{
     case Elevation
 }
 
-class PassConditionViewController: UITableViewController {
+class PassConditionViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
-    var passConditionModel: PassConditionModel?
+    let DefaultPassId = 11 // Snowqualmie i-90
+    var passConditionModelList = [PassConditionModel]()
+    var currentPassConditionModel:PassConditionModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        DataService().getPassCondition { [unowned self] model in
-            self.passConditionModel = model
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.close, target: self, action: #selector(closeSelf(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: UIBarButtonItem.Style.plain, target: self, action: #selector(popupPassNameSearch(_:)))
+        
+        DataService().getPassCondition { [unowned self] models in
+            self.passConditionModelList = models
+            
             DispatchQueue.main.sync {
-                self.title = self.passConditionModel?.MountainPassName
-                self.tableView.reloadData()
+                self.setCurrentPassId(DefaultPassId)
             }
         }
     }
@@ -56,6 +61,32 @@ class PassConditionViewController: UITableViewController {
     func renderCellWithModel(_ tableViewCell: PassConditionTableViewCell, _ section: Int) {
         tableViewCell.contentLabel.text = getCellContentText(section)
     }
+    
+    // MARK: Bar item actions
+    @IBAction func closeSelf(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true)
+    }
+    
+    @IBAction func popupPassNameSearch(_ sender: UIBarButtonItem) {
+        guard let searchViewController = storyboard?.instantiateViewController(withIdentifier: "PassNameSearchVC") as? PassNameSearchViewController else { return }
+ 
+        searchViewController.allPassConditions = self.passConditionModelList
+        searchViewController.currentPass = self.currentPassConditionModel
+        searchViewController.delegate = self
+        self.present(searchViewController, animated: true, completion: nil)
+    }
+}
+
+extension PassConditionViewController : PassNameSearchViewControllerDelegate {
+    func setCurrentPassId(_ passId: Int) {
+        
+        if let model = self.passConditionModelList.first(where: { $0.MountainPassId == passId }) {
+            self.currentPassConditionModel = model
+            
+            self.title = model.MountainPassName
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension PassConditionViewController {
@@ -72,7 +103,7 @@ extension PassConditionViewController {
     }
     
     func getCellContentText(_ section: Int) -> String {
-        guard let passConditionModel = passConditionModel else { return "loading"}
+        guard let passConditionModel = currentPassConditionModel else { return "loading"}
         
         switch section {
         case PassConditionSection.RestrictionEastBound.rawValue:
@@ -85,7 +116,7 @@ extension PassConditionViewController {
             return passConditionModel.WeatherCondition
         case PassConditionSection.Temperature.rawValue:
             if let temp = passConditionModel.TemperatureInFahrenheit {
-                return "\(temp)°F"
+                return "\(temp) °F"
             } else {
                 return "unknown"
             }

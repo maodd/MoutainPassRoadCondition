@@ -11,9 +11,6 @@ import WebKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var webView: WKWebView!
-//    @IBOutlet weak var tableView: UITableView!
-
-    var passConditionModel: PassConditionModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +27,7 @@ class ViewController: UIViewController {
         guard let detailsController = storyboard?.instantiateViewController(withIdentifier: "PassConditionVC") else { return }
  
         let navigationController = UINavigationController(rootViewController: detailsController)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.pageSheet
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
 
         if let sheetPresentationController = detailsController.presentationController as? UISheetPresentationController {
             // Let's have the grabber always visible
