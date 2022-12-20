@@ -23,21 +23,12 @@ class ViewController: UIViewController {
 
     }
     
-    private func showBottomSheet() {
+    private func showPassConditionVC() {
         guard let detailsController = storyboard?.instantiateViewController(withIdentifier: "PassConditionVC") else { return }
  
         let navigationController = UINavigationController(rootViewController: detailsController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
 
-        if let sheetPresentationController = detailsController.presentationController as? UISheetPresentationController {
-            // Let's have the grabber always visible
-            sheetPresentationController.prefersGrabberVisible = true
-            // Define which heights are allowed for our sheet
-            sheetPresentationController.detents = [
-                UISheetPresentationController.Detent.medium(),
-                UISheetPresentationController.Detent.large()
-            ]
-        }
         present(navigationController, animated: true)
     }
 
@@ -52,7 +43,7 @@ extension ViewController: WKNavigationDelegate {
            let url = navigationAction.request.url,
            url.absoluteString == "https://www.costco.com/warehouse-locations" {
             
-            showBottomSheet()
+            showPassConditionVC()
             
             // Ask the web view to ignore the original navigation request
             decisionHandler(.cancel)
