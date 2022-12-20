@@ -13,11 +13,13 @@ class DataService {
     let mountainPassId: Int
     let url: URL
     
+    var allPassConditions:[PassConditionModel] = [PassConditionModel]()
+    
     init(accessCode: String = "92d9dddb-c3d0-48e1-af2b-0ec4709d42aa", mountainPassId: Int = 11) {
         self.accessCode = accessCode //
         self.mountainPassId = mountainPassId
         
-        url = URL(string: "https://wsdot.wa.gov/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionAsJon?AccessCode=\(accessCode)&PassConditionID=\(mountainPassId)")!
+        url = URL(string: "https://wsdot.wa.gov/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionsAsJson?AccessCode=\(accessCode)")!
     }
     
     func getPassCondition(_ completionBlock: @escaping ((PassConditionModel) -> Void)) {
@@ -29,9 +31,11 @@ class DataService {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .useDefaultKeys
                     
-                    let model = try decoder.decode(PassConditionModel.self, from: data)
+                    let modelList = try decoder.decode([PassConditionModel].self, from: data)
                     
-                    completionBlock(model)
+                    if let model = modelList.first(where: { $0.MountainPassId == self.mountainPassId }) {
+                        completionBlock(model)
+                    }
                 } catch {
                     print(error)
                 }

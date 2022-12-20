@@ -84,7 +84,11 @@ extension PassConditionViewController {
         case PassConditionSection.Weather.rawValue:
             return passConditionModel.WeatherCondition
         case PassConditionSection.Temperature.rawValue:
-            return "\(passConditionModel.TemperatureInFahrenheit)°F"
+            if let temp = passConditionModel.TemperatureInFahrenheit {
+                return "\(temp)°F"
+            } else {
+                return "unknown"
+            }
         case PassConditionSection.Elevation.rawValue:
             return "\(passConditionModel.ElevationInFeet) feet"
         default: print("Unexpected Section")

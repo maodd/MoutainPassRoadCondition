@@ -13,6 +13,7 @@ struct Restriction : Decodable {
 }
 
 struct PassConditionModel : Decodable {
+    let MountainPassId: Int
     let DateUpdated: String
     let ElevationInFeet: Int
     let Latitude: Double
@@ -21,7 +22,7 @@ struct PassConditionModel : Decodable {
     let RestrictionOne: Restriction
     let RestrictionTwo: Restriction
     let RoadCondition: String
-    let TemperatureInFahrenheit: Int
+    let TemperatureInFahrenheit: Int?
     let TravelAdvisoryActive: Bool
     let WeatherCondition: String
     
