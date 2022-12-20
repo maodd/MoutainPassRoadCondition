@@ -16,17 +16,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        guard let url = URL(string: "https://www.costco.com") else { return }
-
         webView.navigationDelegate = self
+        
+        guard let url = URL(string: "https://www.costco.com") else { return }
         webView.load(URLRequest(url: url))
-
     }
     
     private func showPassConditionVC() {
-        guard let detailsController = storyboard?.instantiateViewController(withIdentifier: "PassConditionVC") else { return }
+        guard let passConditionViewController = storyboard?.instantiateViewController(withIdentifier: "PassConditionVC") else { return }
  
-        let navigationController = UINavigationController(rootViewController: detailsController)
+        let navigationController = UINavigationController(rootViewController: passConditionViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
 
         present(navigationController, animated: true)

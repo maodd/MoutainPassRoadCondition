@@ -48,13 +48,14 @@ class PassNameSearchViewController: UITableViewController {
     }
    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let currentPass = filteredPassConditions[indexPath.row]
+        self.currentPass = currentPass
+        tableView.reloadData()
+        self.dismiss(animated: true)
+        
         if let delegate = delegate {
-            let currentPass = filteredPassConditions[indexPath.row]
-            self.currentPass = currentPass
-            tableView.reloadData()
-            
             delegate.setCurrentPassId(currentPass.MountainPassId)
-            self.dismiss(animated: true)
         }
     }
 }
@@ -66,6 +67,7 @@ extension PassNameSearchViewController: UISearchBarDelegate {
                 model.MountainPassName.contains(searchText)
             })
         } else {
+            // restore to full list mode if not in search mode (no search terms).
             filteredPassConditions = allPassConditions
         }
         tableView.reloadData()
