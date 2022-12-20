@@ -13,6 +13,10 @@
 		011175CA2950F22B0046D97F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 011175C82950F22B0046D97F /* Main.storyboard */; };
 		011175CC2950F22D0046D97F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011175CB2950F22D0046D97F /* Assets.xcassets */; };
 		011175CF2950F22D0046D97F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 011175CD2950F22D0046D97F /* LaunchScreen.storyboard */; };
+		011175D729510EF60046D97F /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011175D629510EF60046D97F /* DataService.swift */; };
+		016CF9B8295112EA00EB3B3F /* PassConditionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CF9B7295112EA00EB3B3F /* PassConditionModel.swift */; };
+		016CF9BA29511D3000EB3B3F /* PassConditionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CF9B929511D3000EB3B3F /* PassConditionTableViewCell.swift */; };
+		016CF9BC2951202200EB3B3F /* PassConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016CF9BB2951202200EB3B3F /* PassConditionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		011175CB2950F22D0046D97F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		011175CE2950F22D0046D97F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		011175D02950F22D0046D97F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		011175D629510EF60046D97F /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		016CF9B7295112EA00EB3B3F /* PassConditionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassConditionModel.swift; sourceTree = "<group>"; };
+		016CF9B929511D3000EB3B3F /* PassConditionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassConditionTableViewCell.swift; sourceTree = "<group>"; };
+		016CF9BB2951202200EB3B3F /* PassConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassConditionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +67,14 @@
 				011175C22950F22B0046D97F /* AppDelegate.swift */,
 				011175C42950F22B0046D97F /* SceneDelegate.swift */,
 				011175C62950F22B0046D97F /* ViewController.swift */,
+				016CF9BB2951202200EB3B3F /* PassConditionViewController.swift */,
 				011175C82950F22B0046D97F /* Main.storyboard */,
 				011175CB2950F22D0046D97F /* Assets.xcassets */,
 				011175CD2950F22D0046D97F /* LaunchScreen.storyboard */,
 				011175D02950F22D0046D97F /* Info.plist */,
+				011175D629510EF60046D97F /* DataService.swift */,
+				016CF9B7295112EA00EB3B3F /* PassConditionModel.swift */,
+				016CF9B929511D3000EB3B3F /* PassConditionTableViewCell.swift */,
 			);
 			path = MoutainPassRoadCondition;
 			sourceTree = "<group>";
@@ -138,9 +150,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				016CF9BA29511D3000EB3B3F /* PassConditionTableViewCell.swift in Sources */,
 				011175C72950F22B0046D97F /* ViewController.swift in Sources */,
+				016CF9BC2951202200EB3B3F /* PassConditionViewController.swift in Sources */,
 				011175C32950F22B0046D97F /* AppDelegate.swift in Sources */,
 				011175C52950F22B0046D97F /* SceneDelegate.swift in Sources */,
+				011175D729510EF60046D97F /* DataService.swift in Sources */,
+				016CF9B8295112EA00EB3B3F /* PassConditionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +303,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 66RSV67Y88;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoutainPassRoadCondition/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -314,6 +331,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 66RSV67Y88;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoutainPassRoadCondition/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
