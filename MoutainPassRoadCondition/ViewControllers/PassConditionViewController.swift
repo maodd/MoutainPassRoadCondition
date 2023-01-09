@@ -28,12 +28,12 @@ class PassConditionViewController: UITableViewController, UIPopoverPresentationC
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.close, target: self, action: #selector(closeSelf(_:)))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: UIBarButtonItem.Style.plain, target: self, action: #selector(popupPassNameSearch(_:)))
         
-        DataService().getPassCondition { [unowned self] models in
+        DataService().getPassCondition { [weak self] models in
+            guard let self = self else { return }
             self.passConditionModelList = models
             
-            DispatchQueue.main.sync {
-                self.setCurrentPassId(DefaultPassId)
-            }
+            self.setCurrentPassId(self.DefaultPassId)
+           
         }
     }
 
@@ -83,8 +83,14 @@ extension PassConditionViewController : PassNameSearchViewControllerDelegate {
         if let model = self.passConditionModelList.first(where: { $0.MountainPassId == passId }) {
             self.currentPassConditionModel = model
             
-            self.title = model.MountainPassName
-            self.tableView.reloadData()
+            DispatchQueue.main.sync {
+                self.title = model.MountainPassName
+                
+                self.tableView.reloadData()
+            }
+        } else {
+            // error
+            
         }
     }
 }
@@ -113,7 +119,7 @@ extension PassConditionViewController {
         case PassConditionSection.RoadCondition.rawValue:
             return passConditionModel.RoadCondition
         case PassConditionSection.Weather.rawValue:
-            return passConditionModel.WeatherCondition
+            return passConditionModel.WeatherCondition ?? "No current information availiable"
         case PassConditionSection.Temperature.rawValue:
             if let temp = passConditionModel.TemperatureInFahrenheit {
                 return "\(temp) °F"

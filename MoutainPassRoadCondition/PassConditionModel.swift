@@ -24,6 +24,6 @@ struct PassConditionModel : Decodable {
     let RoadCondition: String
     let TemperatureInFahrenheit: Int?
     let TravelAdvisoryActive: Bool
-    let WeatherCondition: String
+    let WeatherCondition: String?
     
 }

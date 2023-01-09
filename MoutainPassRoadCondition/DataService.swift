@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias CompletionHandler = ([PassConditionModel]) -> Void
+
 class DataService {
     
     let url: URL
@@ -17,7 +19,7 @@ class DataService {
         url = URL(string: "https://wsdot.wa.gov/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionsAsJson?AccessCode=\(accessCode)")!
     }
     
-    func getPassCondition(_ completionBlock: @escaping (([PassConditionModel]) -> Void)) {
+    func getPassCondition(_ completionBlock: @escaping CompletionHandler) {
         
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
