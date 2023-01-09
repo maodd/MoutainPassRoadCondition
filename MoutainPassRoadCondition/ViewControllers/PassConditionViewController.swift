@@ -32,7 +32,9 @@ class PassConditionViewController: UITableViewController, UIPopoverPresentationC
             guard let self = self else { return }
             self.passConditionModelList = models
             
-            self.setCurrentPassId(self.DefaultPassId)
+            DispatchQueue.main.sync {
+                self.setCurrentPassId(self.DefaultPassId)
+            }
            
         }
     }
@@ -82,12 +84,11 @@ extension PassConditionViewController : PassNameSearchViewControllerDelegate {
         
         if let model = self.passConditionModelList.first(where: { $0.MountainPassId == passId }) {
             self.currentPassConditionModel = model
+                        
+            self.title = model.MountainPassName
             
-            DispatchQueue.main.sync {
-                self.title = model.MountainPassName
-                
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
+            
         } else {
             // error
             
